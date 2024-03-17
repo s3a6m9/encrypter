@@ -19,7 +19,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'encrypter=encrypter:main',
+            'encrypter=encrypter.__main__:initiator',
         ],
     },
 )

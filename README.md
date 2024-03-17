@@ -7,6 +7,10 @@ To install Encrypter, you can use pip. If you're installing from this Git reposi
 ```bash
 pip install git+https://github.com/s3a6m9/encrypter.git
 ```
+or using pipx (recommended)
+```bash
+pipx install git+https://github.com/s3a6m9/encrypter.git
+```
 
 ## Usage
 > [!NOTE]  
@@ -20,6 +24,8 @@ pip install git+https://github.com/s3a6m9/encrypter.git
 - `path`: Path to the file/folder.
 
 ## Example
+> [!TIP]  
+> If you installed this package through pipx you can run the commands without 'python3 -m'.
 
 ### Encrypting
 Single file example that outputs the file in the same pwd directory with the suffix "-test_encrypt" (default is "-encrypted").
