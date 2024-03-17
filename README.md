@@ -1,6 +1,4 @@
 # Encrypter
-Encrypts files/direcotires with a key using the python cryptography package.
-
 Encrypter is a Python package designed to encrypt or decrypt files and folders. It provides a simple command-line interface for performing encryption and decryption tasks.
 
 ## Installation
