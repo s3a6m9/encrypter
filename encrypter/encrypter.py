@@ -64,7 +64,7 @@ def main(args: argparse.Namespace):
     paths = args.path.split(",")
     excludes = args.exclude.split(",") if args.exclude is not None else []
     output = args.output if args.output is not None else os.getcwd()
-    decrypt_key = base64.urlsafe_b64decode(args.decrypt.encode("utf-8")) if args.decrypt is not None else False
+    decrypt_key = base64.urlsafe_b64decode(args.decrypt.encode("utf-8")) if args.decrypt is not None else None
     suffix = args.suffix if args.suffix is not None else "-encrypted"
 
     print(f"\n\t\
@@ -74,7 +74,7 @@ Output Path: '{output}'\n\t\
 Suffix: '{suffix}'\n\t\
 Decrypt Key: {decrypt_key}\n")
 
-    key = None
+    key = decrypt_key
     if decrypt_key:
         fernet_object = Fernet(decrypt_key)
     else:
@@ -85,18 +85,14 @@ Decrypt Key: {decrypt_key}\n")
         if os.path.isdir(path):
             if decrypt_key:
                 decrypt_recursively(path, output, fernet_object, suffix)
-
-            elif decrypt_key is False:
-                key = Fernet.generate_key()
-                fernet_object = Fernet(key)
+            elif decrypt_key is None:
                 encrypt_recursively(path, output, fernet_object, suffix, excludes)
 
         elif os.path.isfile(path):
             base_name = os.path.basename(path)
-            if decrypt_key is False:
-                encrypt_file(path, os.path.join(output, base_name + suffix), key)
-            elif decrypt_key:
-                decrypt_file(path, os.path.join(output, base_name.replace(suffix, "")), decrypt_key)
+            if decrypt_key:
+                decrypt_file(path, os.path.join(output, base_name.replace(suffix, "")), fernet_object)
+            elif decrypt_key is None:
+                encrypt_file(path, os.path.join(output, base_name + suffix), fernet_object)
 
-    if decrypt_key is False:
-        print(f"This is your encryption key. Keep it safe.\n'{base64.urlsafe_b64encode(key).decode('utf-8')}'")
+    print(f"This is your encryption key. Keep it safe.\n'{base64.urlsafe_b64encode(key).decode('utf-8')}'")
