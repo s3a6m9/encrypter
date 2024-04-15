@@ -1,5 +1,5 @@
 """ Command-line usage of the encrypter package """
-import argparse
+from . import argparse
 from .encrypter import main
 
 def initiator():

@@ -1,8 +1,8 @@
 """
 Command-line python encrypter.
 """
-import argparse
 import base64
+from . import argparse
 from . import os
 from . import Fernet
 
