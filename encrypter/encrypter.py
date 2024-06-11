@@ -2,9 +2,9 @@
 Command-line python encrypter.
 """
 import base64
-from . import argparse
-from . import os
-from . import Fernet
+import argparse
+import os
+from cryptography.fernet import Fernet
 
 def encrypt_file(path: str, out_path: str, fernet_object: Fernet):
     """Encrypts a file using the provided key."""
